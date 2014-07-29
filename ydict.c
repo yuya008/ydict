@@ -149,6 +149,11 @@ static inline ydict_node *ydict_remove_dict(ydict_t *d, const char *key_data, si
     return NULL;
 }
 
+static void rebuild_bucket(ydict_t *d)
+{
+    
+}
+
 ydict_t *ydict_init()
 {
     ydict_t *d = new(sizeof(ydict_t));
