@@ -225,12 +225,12 @@ void *ydict_get(ydict_t *d, const char *key, size_t key_size)
     return NULL;
 }
 
-uint64_t size(ydict_t *d)
+uint64_t ydict_size(ydict_t *d)
 {
     return d->count;
 }
 
-void clear(ydict_t *d)
+void ydict_clear(ydict_t *d)
 {
     ydict_list *list = d->list;
     ydict_node *free_ptr = NULL, *node = NULL;
