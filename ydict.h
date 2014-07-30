@@ -43,12 +43,21 @@ struct ydict_node
     char key_data[];      /* key数据 */
 };
 
+/* ydict初始化 */
 ydict_t *ydict_init();
+/* 放入键值对 */
 int ydict_put(ydict_t*, const char*, size_t, void*);
+/* 用键取值 */
 void *ydict_get(ydict_t*, const char*, size_t);
+/* 通过自然索引获取 */
 void *ydict_get_index(ydict_t*, uint64_t);
+/* 取得元素个数 */
 uint64_t size(ydict_t*);
+/* 清空ydict */
 void clear(ydict_t*);
+/* 用索引删除元素 */
 int remove_index(ydict_t*, uint64_t);
+/* 用key删除元素 */
 int remove_key(ydict_t*, const char*, size_t);
+
 #endif

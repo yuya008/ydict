@@ -6,6 +6,9 @@
 
 static uint32_t default_bucket_size = 1024;
 
+/*
+    内存分配
+*/
 static inline void *new(size_t size)
 {
     void *d = malloc(size);
@@ -17,6 +20,9 @@ static inline void *new(size_t size)
     return d;
 }
 
+/*
+    计算key的hash值
+*/
 static inline uint64_t hash_code(const char *key, size_t key_size)
 {
     uint64_t hash_code = 0;
@@ -27,6 +33,9 @@ static inline uint64_t hash_code(const char *key, size_t key_size)
     return hash_code;
 }
 
+/*
+    创建一个node节点
+*/
 static inline ydict_node *ydict_create_node(const char *key, size_t key_size, void *value)
 {
     ydict_node *new_node = new(sizeof(ydict_node) + key_size);
@@ -36,6 +45,9 @@ static inline ydict_node *ydict_create_node(const char *key, size_t key_size, vo
     return new_node;
 }
 
+/*
+    元素放入list
+*/
 static inline void ydict_put_list(ydict_t *d, ydict_node *new_node)
 {
     ydict_list *list = d->list;
@@ -52,6 +64,9 @@ static inline void ydict_put_list(ydict_t *d, ydict_node *new_node)
     }
 }
 
+/*
+    获取相应的桶位
+*/
 static inline ydict_bucket *ydict_get_bucket(ydict_t *d, const char *key, size_t key_size)
 {
     uint64_t hash_val = hash_code(key, key_size);
@@ -60,6 +75,9 @@ static inline ydict_bucket *ydict_get_bucket(ydict_t *d, const char *key, size_t
     return bucket;
 }
 
+/*
+    放入dict
+*/
 static inline void ydict_put_dict(ydict_t *d, ydict_node *new_node, const char *key, size_t key_size)
 {
     ydict_bucket *bucket = ydict_get_bucket(d, key, key_size);
@@ -71,6 +89,9 @@ static inline void ydict_put_dict(ydict_t *d, ydict_node *new_node, const char *
     }
 }
 
+/*
+    替换
+*/
 static inline int ydict_replace_dict(ydict_t *d, const char *key, size_t key_size, void *value)
 {
     ydict_bucket *bucket = ydict_get_bucket(d, key, key_size);
@@ -88,6 +109,9 @@ static inline int ydict_replace_dict(ydict_t *d, const char *key, size_t key_siz
     return 1;
 }
 
+/*
+    从list中删除
+*/
 static inline ydict_node *ydict_remove_list(ydict_t *d, uint64_t index)
 {
     ydict_list *list = d->list;
@@ -126,6 +150,9 @@ static inline ydict_node *ydict_remove_list(ydict_t *d, uint64_t index)
     return node;
 }
 
+/*
+    从dict中删除
+*/
 static inline ydict_node *ydict_remove_dict(ydict_t *d, const char *key_data, size_t key_size)
 {
     ydict_bucket *bucket = ydict_get_bucket(d, key_data, key_size);
@@ -149,6 +176,9 @@ static inline ydict_node *ydict_remove_dict(ydict_t *d, const char *key_data, si
     return NULL;
 }
 
+/*
+    重新计算hash
+*/
 static void rebuild_bucket(ydict_t *d)
 {
     
