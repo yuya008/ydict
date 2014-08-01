@@ -1,2 +1,5 @@
 .cproject
 .project
+ydict
+test
+*.o
